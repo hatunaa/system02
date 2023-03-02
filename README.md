@@ -158,7 +158,7 @@ Iptables là một công cụ quản lý tường lửa trên các hệ thống 
 
    + Match recent: module này cho phép ta lưu trữ thông tin về các kết nối gần đây của một IP. Ta có thể sử dụng nó để giới hạn tốc độ tạo connection/s của một IP bằng cách đặt một ngưỡng (limit) về số connection được tạo trong một khoảng thời gian nhất định. Ví dụ, để giới hạn một IP chỉ có thể tạo 5 connection/s, ta có thể sử dụng lệnh sau:
 
-     ```bash
+     ```http
      iptables -A INPUT -p tcp --syn --dport 80 -m recent --name SYN --set
      iptables -A INPUT -p tcp --syn --dport 80 -m recent --name SYN --update --seconds 1 --hitcount 5 -j DROP
      ```
@@ -167,7 +167,7 @@ Iptables là một công cụ quản lý tường lửa trên các hệ thống 
 
    + Hash limit: module này cũng cho phép giới hạn tốc độ tạo connection/s của một IP bằng cách sử dụng một bảng hash để lưu trữ thông tin về các kết nối. Ta có thể sử dụng lệnh sau để giới hạn một IP chỉ có thể tạo 10 connection/s:
 
-     ```bash
+     ```http
      iptables -A INPUT -p tcp --dport 80 -m hashlimit --hashlimit-above 10/sec --hashlimit-mode srcip --hashlimit-name http -j DROP
      ```
 
@@ -175,7 +175,7 @@ Iptables là một công cụ quản lý tường lửa trên các hệ thống 
 
    Match connlimit: module này cho phép ta giới hạn số lượng kết nối hiện tại đến một cổng cụ thể từ một địa chỉ IP. Ta có thể sử dụng lệnh sau để giới hạn một IP chỉ có thể có tối đa 20 kết nối đồng thời đến cổng 80:
 
-   ```bash
+   ```http
    iptables -A INPUT -p tcp --syn --dport 80 -m connlimit --connlimit-above 20 --connlimit-mask 32 -j DROP
    ```
 
